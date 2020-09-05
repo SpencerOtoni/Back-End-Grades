@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: '//front-end-grades.herokuapp.com/',
+    origin: 'https://front-end-grades.herokuapp.com/',
   })
 );
 
