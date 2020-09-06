@@ -99,10 +99,8 @@ const remove = async (req, res) => {
 
   try {
     const gradeDelete = await gradeModel.findByIdAndRemove({ _id: id });
-    if (!gradeUpdate) {
+    if (!gradeDelete) {
       res
-        .status(404)
-        .send("Nao encontrado nenhum grade para excluir")
         .status(404)
         .send({
           message: `Não foi encontrada grade correspondente a este ${id}.`,
