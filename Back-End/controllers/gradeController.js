@@ -24,7 +24,6 @@ const create = async (req, res) => {
 
 const findAll = async (req, res) => {
   const name = req.query.name;
-  console.log(name)
   //condicao para o filtro no findAll
   let condition = name
     ? { name: { $regex: new RegExp(name), $options: "i" } }
@@ -51,7 +50,7 @@ const findAll = async (req, res) => {
 
 const findOne = async (req, res) => {
   const id = req.params.id;
-  console.log(id)
+  res.send(id)
   try {
     const grade = await gradeModel.findById({ _id: id });
     console.log(grade)
