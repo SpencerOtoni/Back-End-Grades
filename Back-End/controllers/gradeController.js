@@ -31,9 +31,9 @@ const findAll = async (req, res) => {
 
   try {
     const grades = await gradeModel.find(condition);
-    if (!grades.length) {
+    if (!grades) {
       res.status(404).send({
-        message: `Não foram encontradas grades.`,
+        message: `Não foram encontradas grades para esta pesquisa: ${condition}.`,
       });
     }
     res.send(grades);
@@ -52,9 +52,9 @@ const findOne = async (req, res) => {
   try {
     const grade = await gradeModel.findById({ _id: id });
 
-    if (!grade.length) {
+    if (!grade) {
       res.status(404).send({
-        message: `Não foi encontrada grade.`,
+        message: `Não foi encontrada grade correspondente a este ${id}.`,
       });
     }
     res.send(grade);
@@ -99,8 +99,14 @@ const remove = async (req, res) => {
 
   try {
     const gradeDelete = await gradeModel.findByIdAndRemove({ _id: id });
-    if (!gradeDelete) {
-      res.status(404).send("Nao encontrado nenhum grade para excluir");
+    if (!gradeUpdate) {
+      res
+        .status(404)
+        .send("Nao encontrado nenhum grade para excluir")
+        .status(404)
+        .send({
+          message: `Não foi encontrada grade correspondente a este ${id}.`,
+        });
     }
     res.send(`Grade removida com sucesso.`);
     logger.info(`DELETE /grade - ${id}`);
