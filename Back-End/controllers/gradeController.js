@@ -24,7 +24,7 @@ const create = async (req, res) => {
 
 const findAll = async (req, res) => {
   const name = req.query.name;
-
+  console.log(name)
   //condicao para o filtro no findAll
   let condition = name
     ? { name: { $regex: new RegExp(name), $options: "i" } }
