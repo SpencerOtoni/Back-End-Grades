@@ -24,6 +24,6 @@ const schema = mongoose.Schema({
   },
 });
 
-const gradeModel = mongoose.model("students", schema, "students");
+const gradeModel = mongoose.model("grades", schema, "grades");
 
 export default gradeModel
