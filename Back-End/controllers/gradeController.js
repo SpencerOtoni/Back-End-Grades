@@ -1,6 +1,6 @@
 import { db } from "../models/index.js";
 import { logger } from "../config/logger.js";
-import gradeModel  from "../models/gradesModel.js";
+import gradeModel from "../models/gradesModel.js";
 
 const create = async (req, res) => {
   const { name, subject, type, value } = req.body;
@@ -11,8 +11,8 @@ const create = async (req, res) => {
     value,
   });
   try {
-    const newGrades = await grades.save()
-    res.send({ message: `Grade inserido com sucesso: ${newGrades}.`});
+    const newGrades = await grades.save();
+    res.send({ message: `Grade inserido com sucesso.` });
     logger.info(`POST /grade - ${JSON.stringify()}`);
   } catch (error) {
     res
@@ -32,8 +32,12 @@ const findAll = async (req, res) => {
 
   try {
     const grades = await gradeModel.find(condition);
-    if(!grades){
-      res.status(404).send({ message: `Não foram encontradas grades para esta pesquisa: ${condition}.`})
+    if (!grades) {
+      res
+        .status(404)
+        .send({
+          message: `Não foram encontradas grades para esta pesquisa: ${condition}.`,
+        });
     }
     res.send(grades);
     logger.info(`GET /grade`);
@@ -49,11 +53,15 @@ const findOne = async (req, res) => {
   const id = req.params.id;
 
   try {
-    const grade = await gradeModel.findById({_id: id})
-    if(!grade){
-      res.status(404).send({ message:`Não foi encontrada grade correspondente a este ${id}.`})
+    const grade = await gradeModel.findById({ _id: id });
+    if (!grade) {
+      res
+        .status(404)
+        .send({
+          message: `Não foi encontrada grade correspondente a este ${id}.`,
+        });
     }
-    res.send({message: `Resultado da pesquisa: ${grade}.`})
+    res.send(grade);
     logger.info(`GET /grade - ${id}`);
   } catch (error) {
     res.status(500).send({ message: "Erro ao buscar o Grade id: " + id });
@@ -72,14 +80,18 @@ const update = async (req, res) => {
 
   try {
     const gradeUpdate = await gradeModel.findByIdAndUpdate(
-      {_id : id},
+      { _id: id },
       req.body,
       { new: true }
     );
-    if(!gradeUpdate){
-      res.status(404).send({ message:`Não foi encontrada grade correspondente a este ${id}.`})
+    if (!gradeUpdate) {
+      res
+        .status(404)
+        .send({
+          message: `Não foi encontrada grade correspondente a este ${id}.`,
+        });
     }
-    res.send({message: `Grade atualizada com sucesso: ${gradeUpdate}.`})
+    res.send(gradeUpdate);
     logger.info(`PUT /grade - ${id} - ${JSON.stringify(req.body)}`);
   } catch (error) {
     res.status(500).send({ message: "Erro ao atualizar a Grade id: " + id });
@@ -91,15 +103,15 @@ const remove = async (req, res) => {
   const id = req.params.id;
 
   try {
-    const gradeDelete = await gradeModel.findByIdAndRemove(
-      {_id : id},
-      req.body,
-      { new: true }
-    );
-    if(!gradeUpdate){
-      res.status(404).send({ message:`Não foi encontrada grade correspondente a este ${id}.`})
+    const gradeDelete = await gradeModel.findByIdAndRemove({ _id: id });
+    if (!gradeUpdate) {
+      res.status(404).send('Nao encontrado nenhum grade para excluir')
+        .status(404)
+        .send({
+          message: `Não foi encontrada grade correspondente a este ${id}.`,
+        });
     }
-    res.send({message: `Grade removida com sucesso.`})
+    res.send(`Grade removida com sucesso.`);
     logger.info(`DELETE /grade - ${id}`);
   } catch (error) {
     res
@@ -112,10 +124,12 @@ const remove = async (req, res) => {
 const removeAll = async (req, res) => {
   try {
     const deleteData = await gradeModel.deleteMany();
-    if(!deleteData){
-      res.status(404).send({ message:`Não foi encontradados dados para excluir.`})
+    if (!deleteData) {
+      res
+        .status(404)
+        .send({ message: `Não foi encontradados dados para excluir.` });
     }
-    res.send({message: `Dados excluidor com sucesso!`})
+    res.send({ message: `Grades excluidor com sucesso!` });
     logger.info(`DELETE /grade`);
   } catch (error) {
     res.status(500).send({ message: "Erro ao excluir todos as Grades" });
