@@ -31,7 +31,7 @@ const findAll = async (req, res) => {
     : {};
 
   try {
-    const grades = await gradeModel.findAll(condition);
+    const grades = await gradeModel.find(condition);
     if(!grades){
       res.status(404).send({ message: `Não foram encontradas grades para esta pesquisa: ${condition}.`})
     }
