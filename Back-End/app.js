@@ -26,11 +26,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({
     origin: 'https://front-end-grades.herokuapp.com',
   }));
-//app.use(gradeRouter);
+app.use(gradeRouter);
 
-app.get("/", (req, res) => {
+/*app.get("/", (req, res) => {
   res.send("API em execucao");
-});
+});*/
 const PORT = process.env.PORT;
 app.listen(process.env.PORT || 8081, () => {
   console.log(`Servidor em execucao na porta ${PORT}`);
