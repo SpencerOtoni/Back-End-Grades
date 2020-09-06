@@ -32,11 +32,9 @@ const findAll = async (req, res) => {
   try {
     const grades = await gradeModel.find(condition);
     if (!grades) {
-      res
-        .status(404)
-        .send({
-          message: `Não foram encontradas grades para esta pesquisa: ${condition}.`,
-        });
+      res.status(404).send({
+        message: `Não foram encontradas grades para esta pesquisa: ${condition}.`,
+      });
     }
     res.send(grades);
     logger.info(`GET /grade`);
@@ -50,16 +48,14 @@ const findAll = async (req, res) => {
 
 const findOne = async (req, res) => {
   const id = req.params.id;
-  res.send(req.params)
+
   try {
     const grade = await gradeModel.findById({ _id: id });
-    console.log(grade)
+
     if (!grade) {
-      res
-        .status(404)
-        .send({
-          message: `Não foi encontrada grade correspondente a este ${id}.`,
-        });
+      res.status(404).send({
+        message: `Não foi encontrada grade correspondente a este ${id}.`,
+      });
     }
     res.send(grade);
     logger.info(`GET /grade - ${id}`);
@@ -77,7 +73,6 @@ const update = async (req, res) => {
   }
 
   const id = req.params.id;
-  console.log(id)
 
   try {
     const gradeUpdate = await gradeModel.findByIdAndUpdate(
@@ -85,13 +80,11 @@ const update = async (req, res) => {
       req.body,
       { new: true }
     );
-    console.log(gradeUpdate)
+
     if (!gradeUpdate) {
-      res
-        .status(404)
-        .send({
-          message: `Não foi encontrada grade correspondente a este ${id}.`,
-        });
+      res.status(404).send({
+        message: `Não foi encontrada grade correspondente a este ${id}.`,
+      });
     }
     res.send(gradeUpdate);
     logger.info(`PUT /grade - ${id} - ${JSON.stringify(req.body)}`);
@@ -103,12 +96,13 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
   const id = req.params.id;
-  console.log(id)
+
   try {
     const gradeDelete = await gradeModel.findByIdAndRemove({ _id: id });
-    console.log(gradeDelete)
     if (!gradeUpdate) {
-      res.status(404).send('Nao encontrado nenhum grade para excluir')
+      res
+        .status(404)
+        .send("Nao encontrado nenhum grade para excluir")
         .status(404)
         .send({
           message: `Não foi encontrada grade correspondente a este ${id}.`,
