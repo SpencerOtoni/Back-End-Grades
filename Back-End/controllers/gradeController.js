@@ -51,9 +51,10 @@ const findAll = async (req, res) => {
 
 const findOne = async (req, res) => {
   const id = req.params.id;
-
+  console.log(id)
   try {
     const grade = await gradeModel.findById({ _id: id });
+    console.log(grade)
     if (!grade) {
       res
         .status(404)
@@ -77,6 +78,7 @@ const update = async (req, res) => {
   }
 
   const id = req.params.id;
+  console.log(id)
 
   try {
     const gradeUpdate = await gradeModel.findByIdAndUpdate(
@@ -84,6 +86,7 @@ const update = async (req, res) => {
       req.body,
       { new: true }
     );
+    console.log(gradeUpdate)
     if (!gradeUpdate) {
       res
         .status(404)
@@ -101,9 +104,10 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
   const id = req.params.id;
-
+  console.log(id)
   try {
     const gradeDelete = await gradeModel.findByIdAndRemove({ _id: id });
+    console.log(gradeDelete)
     if (!gradeUpdate) {
       res.status(404).send('Nao encontrado nenhum grade para excluir')
         .status(404)
